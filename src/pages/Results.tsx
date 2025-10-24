@@ -56,32 +56,28 @@ export default function Results() {
   async function generateSummary(text: string): Promise<string> {
     try {
       const options = {
-        sharedContext: 'this is markdown generated text',
-        type: 'tl;dr',
-        format: 'plain-text',
-        length: 'short'
-      };
+      sharedContext: 'this is a markdown generated page',
+      type: 'Teaser',
+      format: 'Plain Text',
+      length: 'Short'
+    };
 
-      // @ts-ignore - Summarizer API is experimental
-      const availability = await window.ai?.summarizer?.capabilities();
-      
-      if (!availability || availability.available === 'no') {
-        return 'Summarizer API is not available in your browser';
-      }
-
-      // @ts-ignore
-      const summarizer = await window.ai.summarizer.create(options);
-      
-      if (availability.available === 'after-download') {
-        summarizer.addEventListener('downloadprogress', (e: any) => {
-          console.log(`Downloaded ${e.loaded * 100}%`);
-        });
-        await summarizer.ready;
-      }
-
-      const summary = await summarizer.summarize(text);
-      summarizer.destroy();
-      
+    const availability = await Summarizer.availability();
+    let summarizer;
+    if (availability === 'unavailable') {
+      return 'Summarizer API is not available';
+    }
+    if (availability === 'available') {
+      // The Summarizer API can be used immediately .
+      summarizer = await Summarizer.create(options);
+    } else {
+      // The Summarizer API can be used after the model is downloaded.
+      summarizer = await Summarizer.create(options);
+      summarizer.addEventListener('downloadprogress', (e) => {
+        console.log(`Downloaded ${e.loaded * 100}%`);
+      });
+      await summarizer.ready;
+    }
       // Truncate to 160 characters
       return summary.length > 160 ? summary.substring(0, 157) + '...' : summary;
     } catch (e: any) {
