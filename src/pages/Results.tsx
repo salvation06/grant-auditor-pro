@@ -52,6 +52,7 @@ export default function Results() {
       description: "Impact analysis downloaded successfully",
     });
   };
+  let summarizer = null;
   Summary();
 async function Summary()
 {
@@ -62,7 +63,7 @@ async function Summary()
         length: 'short'
       };
   const availability = await Summarizer.availability();
-    let summarizer;
+    //let summarizer;
     if (availability === 'unavailable') {
       console.log('Summarizer API is not available');
     }
@@ -81,29 +82,6 @@ async function Summary()
 }
   async function generateSummary(text: string): Promise<string> {
       try {
-        const options = {
-        sharedContext: 'this is a markdown generated page',
-        type: 'teaser',
-        format: 'plain-text',
-        length: 'short'
-      };
-
-      const availability = await Summarizer.availability();
-      let summarizer;
-      if (availability === 'unavailable') {
-        return 'Summarizer API is not available';
-      }
-      if (availability === 'available') {
-        // The Summarizer API can be used immediately .
-        summarizer = await Summarizer.create(options);
-      } else {
-        // The Summarizer API can be used after the model is downloaded.
-        summarizer = await Summarizer.create(options);
-        summarizer.addEventListener('downloadprogress', (e) => {
-          console.log(`Downloaded ${e.loaded * 100}%`);
-        });
-        await summarizer.ready;
-      }
       const summary = await summarizer.summarize(text);
       console.log('Summary generation - ' + summary);
       summarizer.destroy();
