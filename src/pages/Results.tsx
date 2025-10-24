@@ -58,7 +58,7 @@ async function Summary()
 {
    const options = {
         sharedContext: 'this is a markdown generated page',
-        type: 'teaser',
+        type: 'key-points',
         format: 'plain-text',
         length: 'short'
       };
