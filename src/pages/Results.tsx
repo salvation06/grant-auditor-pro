@@ -15,7 +15,7 @@ export default function Results() {
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <Card className="p-8 text-center max-w-md">
           <p className="text-muted-foreground mb-4">No assessment data available</p>
-          <Button onClick={() => navigate("/")}>Return to Grants</Button>
+          <Button onClick={() => navigate("/grants")}>Return to Grants</Button>
         </Card>
       </div>
     );
@@ -37,7 +37,7 @@ export default function Results() {
           <div className="flex items-center justify-between">
             <Button
               variant="ghost"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/grants")}
               className="gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
