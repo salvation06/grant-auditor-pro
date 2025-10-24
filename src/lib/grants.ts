@@ -168,7 +168,9 @@ export async function assessGrantImpact(grant: Grant, options: {
   });
 
   try {
+    console.log("Call prompt");
     const response = await session.prompt(prompt);
+    console.log("Completed prompt");
     return response;
   } catch (e) {
     await resetModelSession();
