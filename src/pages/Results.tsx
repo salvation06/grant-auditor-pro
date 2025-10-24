@@ -95,6 +95,7 @@ export default function Results() {
     setIsGeneratingSummary(true);
     try {
       const summary = await generateSummary(assessment);
+      console.log(summary);
       const tweetText = `${summary}\n\nAnalyzing grant: ${grant.recipient} - ${formatCurrency(grant.value)}`;
       const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
       window.open(twitterUrl, '_blank');
