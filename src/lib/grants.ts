@@ -173,6 +173,7 @@ export async function assessGrantImpact(grant: Grant, options: {
     console.log("Completed prompt");
     return response;
   } catch (e) {
+    console.log(e);
     await resetModelSession();
     throw e;
   }
