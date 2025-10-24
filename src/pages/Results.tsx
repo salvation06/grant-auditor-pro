@@ -58,7 +58,7 @@ export default function Results() {
         const options = {
         sharedContext: 'this is a markdown generated page',
         type: 'Teaser',
-        format: 'Plain text',
+        format: 'plain-text',
         length: 'Short'
       };
 
