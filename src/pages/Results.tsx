@@ -1,13 +1,17 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft, FileText, Download, Share2 } from "lucide-react";
 import { MarkdownContent } from "@/components/MarkdownContent";
 import { Grant } from "@/lib/grants";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Results() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
   const { grant, assessment } = location.state as { grant: Grant; assessment: string } || {};
 
   if (!grant || !assessment) {
@@ -28,6 +32,81 @@ export default function Results() {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
+  };
+
+  const downloadMarkdown = () => {
+    const content = `# ${grant.recipient}\n\n**Agency:** ${grant.agency}\n**Grant Value:** ${formatCurrency(grant.value)}\n**Stated Savings:** ${formatCurrency(grant.savings)}\n**Date:** ${grant.date}\n\n---\n\n## Cancellation Impact Analysis\n\n${assessment}`;
+    
+    const blob = new Blob([content], { type: 'text/markdown' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${grant.recipient.replace(/[^a-z0-9]/gi, '_')}_impact_analysis.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Downloaded",
+      description: "Impact analysis downloaded successfully",
+    });
+  };
+
+  async function generateSummary(text: string): Promise<string> {
+    try {
+      const options = {
+        sharedContext: 'this is markdown generated text',
+        type: 'tl;dr',
+        format: 'plain-text',
+        length: 'short'
+      };
+
+      // @ts-ignore - Summarizer API is experimental
+      const availability = await window.ai?.summarizer?.capabilities();
+      
+      if (!availability || availability.available === 'no') {
+        return 'Summarizer API is not available in your browser';
+      }
+
+      // @ts-ignore
+      const summarizer = await window.ai.summarizer.create(options);
+      
+      if (availability.available === 'after-download') {
+        summarizer.addEventListener('downloadprogress', (e: any) => {
+          console.log(`Downloaded ${e.loaded * 100}%`);
+        });
+        await summarizer.ready;
+      }
+
+      const summary = await summarizer.summarize(text);
+      summarizer.destroy();
+      
+      // Truncate to 160 characters
+      return summary.length > 160 ? summary.substring(0, 157) + '...' : summary;
+    } catch (e: any) {
+      console.log('Summary generation failed');
+      console.error(e);
+      return 'Error: ' + e.message;
+    }
+  }
+
+  const shareToTwitter = async () => {
+    setIsGeneratingSummary(true);
+    try {
+      const summary = await generateSummary(assessment);
+      const tweetText = `${summary}\n\nAnalyzing grant: ${grant.recipient} - ${formatCurrency(grant.value)}`;
+      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+      window.open(twitterUrl, '_blank');
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to generate summary",
+        variant: "destructive",
+      });
+    } finally {
+      setIsGeneratingSummary(false);
+    }
   };
 
   return (
@@ -80,10 +159,34 @@ export default function Results() {
 
         <Card className="p-8">
           <div className="mb-6 pb-6 border-b border-border">
-            <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
-              <FileText className="h-5 w-5 text-primary" />
-              Cancellation Impact Analysis
-            </h2>
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <h2 className="text-xl font-semibold text-foreground flex items-center gap-2">
+                <FileText className="h-5 w-5 text-primary" />
+                Cancellation Impact Analysis
+              </h2>
+              <div className="flex items-center gap-3">
+                <Button
+                  variant="outline"
+                  onClick={downloadMarkdown}
+                  className="gap-2"
+                >
+                  <Download className="h-4 w-4" />
+                  Download
+                </Button>
+                <div className="flex flex-col items-end gap-2">
+                  <span className="text-xs text-muted-foreground">Share Summarized View To Twitter</span>
+                  <Button
+                    variant="default"
+                    onClick={shareToTwitter}
+                    disabled={isGeneratingSummary}
+                    className="gap-2"
+                  >
+                    <Share2 className="h-4 w-4" />
+                    {isGeneratingSummary ? "Generating..." : "Share"}
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
           
           <MarkdownContent content={assessment} />
