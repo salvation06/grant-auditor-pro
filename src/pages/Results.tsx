@@ -57,9 +57,9 @@ export default function Results() {
       try {
         const options = {
         sharedContext: 'this is a markdown generated page',
-        type: 'Teaser',
+        type: 'teaser',
         format: 'plain-text',
-        length: 'Short'
+        length: 'short'
       };
 
       const availability = await Summarizer.availability();
