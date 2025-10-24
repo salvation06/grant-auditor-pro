@@ -79,6 +79,7 @@ export default function Results() {
         await summarizer.ready;
       }
       const summary = await summarizer.summarize(text);
+      console.log('Summary generation - ' + summary);
       summarizer.destroy();
       // Truncate to 160 characters
       return summary.length > 160 ? summary.substring(0, 157) + '...' : summary;
