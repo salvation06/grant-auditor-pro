@@ -52,7 +52,33 @@ export default function Results() {
       description: "Impact analysis downloaded successfully",
     });
   };
-
+  Summary();
+async function Summary()
+{
+   const options = {
+        sharedContext: 'this is a markdown generated page',
+        type: 'teaser',
+        format: 'plain-text',
+        length: 'short'
+      };
+  const availability = await Summarizer.availability();
+    let summarizer;
+    if (availability === 'unavailable') {
+      console.log('Summarizer API is not available');
+    }
+    if (availability === 'available') {
+      // The Summarizer API can be used immediately .
+      summarizer = await Summarizer.create(options);
+      console.log('Summarizer API is available');
+    } else {
+      // The Summarizer API can be used after the model is downloaded.
+      summarizer = await Summarizer.create(options);
+      summarizer.addEventListener('downloadprogress', (e) => {
+        console.log(`Downloaded ${e.loaded * 100}%`);
+      });
+      await summarizer.ready;
+    }
+}
   async function generateSummary(text: string): Promise<string> {
       try {
         const options = {
