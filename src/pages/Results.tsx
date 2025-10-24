@@ -54,13 +54,13 @@ export default function Results() {
   };
 
   async function generateSummary(text: string): Promise<string> {
-    try {
-      const options = {
-      sharedContext: 'this is a markdown generated page',
-      type: 'Teaser',
-      format: 'Plain Text',
-      length: 'Short'
-    };
+      try {
+        const options = {
+        sharedContext: 'this is a markdown generated page',
+        type: 'Teaser',
+        format: 'Plain text',
+        length: 'Short'
+      };
 
       const availability = await Summarizer.availability();
       let summarizer;
