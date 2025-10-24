@@ -62,22 +62,24 @@ export default function Results() {
       length: 'Short'
     };
 
-    const availability = await Summarizer.availability();
-    let summarizer;
-    if (availability === 'unavailable') {
-      return 'Summarizer API is not available';
-    }
-    if (availability === 'available') {
-      // The Summarizer API can be used immediately .
-      summarizer = await Summarizer.create(options);
-    } else {
-      // The Summarizer API can be used after the model is downloaded.
-      summarizer = await Summarizer.create(options);
-      summarizer.addEventListener('downloadprogress', (e) => {
-        console.log(`Downloaded ${e.loaded * 100}%`);
-      });
-      await summarizer.ready;
-    }
+      const availability = await Summarizer.availability();
+      let summarizer;
+      if (availability === 'unavailable') {
+        return 'Summarizer API is not available';
+      }
+      if (availability === 'available') {
+        // The Summarizer API can be used immediately .
+        summarizer = await Summarizer.create(options);
+      } else {
+        // The Summarizer API can be used after the model is downloaded.
+        summarizer = await Summarizer.create(options);
+        summarizer.addEventListener('downloadprogress', (e) => {
+          console.log(`Downloaded ${e.loaded * 100}%`);
+        });
+        await summarizer.ready;
+      }
+      const summary = await summarizer.summarize(text);
+      summarizer.destroy();
       // Truncate to 160 characters
       return summary.length > 160 ? summary.substring(0, 157) + '...' : summary;
     } catch (e: any) {
