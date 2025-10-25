@@ -1,17 +1,20 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, FileText, Download, Share2 } from "lucide-react";
+import { ArrowLeft, FileText, Download, Share2, Users } from "lucide-react";
 import { MarkdownContent } from "@/components/MarkdownContent";
 import { Grant } from "@/lib/grants";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { CongressionalContactDialog } from "@/components/CongressionalContactDialog";
+import "@/types/browser-apis";
 
 export default function Results() {
   const location = useLocation();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+  const [congressDialogOpen, setCongressDialogOpen] = useState(false);
   const { grant, assessment } = location.state as { grant: Grant; assessment: string } || {};
 
   if (!grant || !assessment) {
@@ -52,47 +55,41 @@ export default function Results() {
       description: "Impact analysis downloaded successfully",
     });
   };
-  let summarizer = null;
-  Summary();
-async function Summary()
-{
-   const options = {
+  const generateSummary = async (text: string): Promise<string> => {
+    try {
+      if (!('Summarizer' in window)) {
+        throw new Error('Summarizer API is not available in this browser');
+      }
+
+      const options = {
         sharedContext: 'this is a markdown generated page',
         type: 'key-points',
         format: 'plain-text',
         length: 'short'
       };
-  const availability = await Summarizer.availability();
-    //let summarizer;
-    if (availability === 'unavailable') {
-      console.log('Summarizer API is not available');
-    }
-    if (availability === 'available') {
-      // The Summarizer API can be used immediately .
-      summarizer = await Summarizer.create(options);
-      console.log('Summarizer API is available');
-    } else {
-      // The Summarizer API can be used after the model is downloaded.
-      summarizer = await Summarizer.create(options);
-      summarizer.addEventListener('downloadprogress', (e) => {
-        console.log(`Downloaded ${e.loaded * 100}%`);
-      });
-      await summarizer.ready;
-    }
-}
-  async function generateSummary(text: string): Promise<string> {
-      try {
+
+      const availability = await Summarizer.availability();
+      
+      if (availability === 'unavailable') {
+        throw new Error('Summarizer API is not available');
+      }
+
+      const summarizer = await Summarizer.create(options);
+      
+      if (availability !== 'available' && summarizer.ready) {
+        await summarizer.ready;
+      }
+
       const summary = await summarizer.summarize(text);
-      console.log('Summary generation - ' + summary);
       summarizer.destroy();
+      
       // Truncate to 160 characters
       return summary.length > 160 ? summary.substring(0, 157) + '...' : summary;
     } catch (e: any) {
-      console.log('Summary generation failed');
-      console.error(e);
-      return 'Error: ' + e.message;
+      console.error('Summary generation failed:', e);
+      throw e;
     }
-  }
+  };
 
   const shareToTwitter = async () => {
     setIsGeneratingSummary(true);
@@ -168,7 +165,7 @@ async function Summary()
                 <FileText className="h-5 w-5 text-primary" />
                 Cancellation Impact Analysis
               </h2>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 flex-wrap">
                 <Button
                   variant="outline"
                   onClick={downloadMarkdown}
@@ -176,6 +173,14 @@ async function Summary()
                 >
                   <Download className="h-4 w-4" />
                   Download
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setCongressDialogOpen(true)}
+                  className="gap-2"
+                >
+                  <Users className="h-4 w-4" />
+                  Contact Your Congress Person
                 </Button>
                 <div className="flex flex-col items-end gap-2">
                   <span className="text-xs text-muted-foreground">Share Summarized View To Twitter</span>
@@ -196,6 +201,12 @@ async function Summary()
           <MarkdownContent content={assessment} />
         </Card>
       </div>
+
+      <CongressionalContactDialog
+        open={congressDialogOpen}
+        onOpenChange={setCongressDialogOpen}
+        assessmentText={assessment}
+      />
     </div>
   );
 }
