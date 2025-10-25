@@ -7,7 +7,6 @@ import { Grant } from "@/lib/grants";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { CongressionalContactDialog } from "@/components/CongressionalContactDialog";
-import "@/types/browser-apis";
 
 export default function Results() {
   const location = useLocation();

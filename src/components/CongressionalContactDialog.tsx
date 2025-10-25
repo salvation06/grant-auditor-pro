@@ -6,7 +6,6 @@ import { Card } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Loader2, Phone, Globe, MapPin, Mail } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import "@/types/browser-apis";
 
 interface Official {
   name: string;
