@@ -47,6 +47,14 @@ All colors MUST be HSL.
     --shadow-card: 0 1px 3px 0 hsl(215 25% 27% / 0.08), 0 1px 2px 0 hsl(215 25% 27% / 0.02);
     
     --transition-smooth: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Futuristic I, Robot-inspired design tokens */
+    --cyber-glow: 195 100% 50%;
+    --cyber-glow-secondary: 217 91% 60%;
+    --gradient-cyber: linear-gradient(135deg, hsl(195 100% 50% / 0.1) 0%, hsl(217 91% 60% / 0.15) 50%, hsl(195 100% 50% / 0.1) 100%);
+    --gradient-hero: linear-gradient(to right, hsl(217 91% 10%) 0%, hsl(217 91% 15%) 50%, hsl(217 91% 10%) 100%);
+    --shadow-cyber: 0 0 40px hsl(195 100% 50% / 0.4), 0 0 80px hsl(195 100% 50% / 0.2);
+    --shadow-glow-strong: 0 0 60px hsl(195 100% 50% / 0.6), 0 0 100px hsl(195 100% 50% / 0.3), 0 20px 40px hsl(0 0% 0% / 0.4);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +108,14 @@ All colors MUST be HSL.
     --shadow-md: 0 4px 6px -1px hsl(0 0% 0% / 0.3), 0 2px 4px -1px hsl(0 0% 0% / 0.2);
     --shadow-lg: 0 10px 15px -3px hsl(0 0% 0% / 0.3), 0 4px 6px -2px hsl(0 0% 0% / 0.2);
     --shadow-card: 0 1px 3px 0 hsl(0 0% 0% / 0.25), 0 1px 2px 0 hsl(0 0% 0% / 0.15);
+    
+    /* Futuristic I, Robot-inspired design tokens */
+    --cyber-glow: 195 100% 50%;
+    --cyber-glow-secondary: 217 91% 60%;
+    --gradient-cyber: linear-gradient(135deg, hsl(195 100% 50% / 0.15) 0%, hsl(217 91% 60% / 0.2) 50%, hsl(195 100% 50% / 0.15) 100%);
+    --gradient-hero: linear-gradient(to right, hsl(217 91% 8%) 0%, hsl(217 91% 12%) 50%, hsl(217 91% 8%) 100%);
+    --shadow-cyber: 0 0 40px hsl(195 100% 50% / 0.5), 0 0 80px hsl(195 100% 50% / 0.25);
+    --shadow-glow-strong: 0 0 60px hsl(195 100% 50% / 0.7), 0 0 100px hsl(195 100% 50% / 0.4), 0 20px 40px hsl(0 0% 0% / 0.5);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
