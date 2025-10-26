@@ -29,8 +29,8 @@ const Home = () => {
 
       {/* Hero Section */}
       <div className="relative z-10 flex items-center justify-center min-h-screen px-6 py-12">
-        <div className="max-w-[1800px] w-full">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-[1800px] w-full space-y-12">
+          <div className="grid lg:grid-cols-[1.2fr,1fr] gap-8 lg:gap-12 items-center">
             {/* Left Column - Content */}
             <div className="space-y-10">
               <div className="inline-flex items-center gap-3 px-6 py-3 bg-[hsl(195,100%,50%,0.1)] border border-[hsl(195,100%,50%,0.3)] rounded-full backdrop-blur-sm">
@@ -82,19 +82,10 @@ const Home = () => {
                   </div>
                 </div>
               </div>
-
-              {/* Disclaimer */}
-              <div className="pt-10 border-t border-[hsl(195,100%,50%,0.2)]">
-                <p className="text-sm text-[hsl(210,40%,60%)] leading-relaxed">
-                  <strong className="text-[hsl(195,100%,70%)]">DISCLAIMER:</strong> This project is not affiliated with any political party 
-                  and should not be considered as such. It merely uses Artificial Intelligence to analyze 
-                  the impacts of grants that have been canceled.
-                </p>
-              </div>
             </div>
 
             {/* Right Column - Dog Image */}
-            <div className="relative flex items-center justify-center lg:justify-end">
+            <div className="relative flex items-center justify-center lg:justify-start order-first lg:order-last">
               <div className="relative">
                 {/* Outer glow ring */}
                 <div className="absolute -inset-8 bg-gradient-to-r from-[hsl(195,100%,50%)] to-[hsl(217,91%,60%)] rounded-full blur-3xl opacity-40 animate-pulse" />
@@ -129,6 +120,15 @@ const Home = () => {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Disclaimer - Outside Grid */}
+          <div className="max-w-4xl mx-auto pt-10 border-t border-[hsl(195,100%,50%,0.2)]">
+            <p className="text-sm text-[hsl(210,40%,60%)] leading-relaxed text-center">
+              <strong className="text-[hsl(195,100%,70%)]">DISCLAIMER:</strong> This project is not affiliated with any political party 
+              and should not be considered as such. It merely uses Artificial Intelligence to analyze 
+              the impacts of grants that have been canceled.
+            </p>
           </div>
         </div>
       </div>
