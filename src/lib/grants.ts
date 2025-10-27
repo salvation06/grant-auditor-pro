@@ -107,32 +107,32 @@ export function buildAssessmentPrompt(grant: Grant, extraContext = "") {
   const { date, agency, recipient, value, savings, link, description } = grant;
 
   return `
-You are a policy & economics analyst. Your task is to analyze the **impact if this grant were canceled**.
+As a policy analyst, evaluate the consequences of canceling this grant.
 
-Grant (normalized schema):
-- Date: ${date}
-- Agency: ${agency}
+**Grant Data:**
 - Recipient: ${recipient}
-- Amount_Value_USD: ${value}
-- Stated_Savings_USD: ${savings}
-- Link: ${link || "N/A"}
-- Description: ${description?.slice(0, 1500) ?? ""}
+- Amount: ${value} USD
+- Purpose: ${description?.slice(0, 1000) ?? ""}
+- Context: ${extraContext || "N/A"}
 
-Additional context (external facts, if any):
-${extraContext || "N/A"}
+---
 
-TASK:
-1) **Impact Summary**: Briefly assess short-term (0-12mo) and long-term (1-10yr) impacts on 3 key areas:
-   - Economic (jobs, local business)
-   - Public/Social (citizens, environment)
-   - Strategic (supply chain, national interest)
-2) **Risk Register**: List the top 3-4 risks from cancellation (risk, impact).
-3) **Mitigations**: Suggest 2-3 brief alternatives if this grant is canceled.
-4) **GAP Analysis Summary**: Provide a concise summary table with:
-   Current State → Gap if Canceled → Impact Level (Low/Med/High) → Mitigation.
+### 1. Core Impact Analysis
+* **Short-Term (0-12 mos):** Briefly state the immediate economic (e.g., jobs) and social (e.g., public service) effects.
+* **Long-Term (1-10 yrs):** Briefly state the potential strategic (e.g., supply chain, innovation) and public outcomes.
 
-OUTPUT FORMAT:
-Return clean markdown. Provide a final 1-2 sentence **Bottom Line**.
+---
+
+### 2. Key Risks & Mitigations
+* **Primary Risk:** [Describe the most significant risk]
+    * **Mitigation:** [Suggest a direct alternative or solution]
+* **Secondary Risk:** [Describe the next most significant risk]
+    * **Mitigation:** [Suggest a direct alternative or solution]
+
+---
+
+### 3. Bottom Line
+A final 1-2 sentence summary of the overall impact of cancellation.
 `;
 }
 
