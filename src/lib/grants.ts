@@ -107,7 +107,7 @@ export function buildAssessmentPrompt(grant: Grant, extraContext = "") {
   const { date, agency, recipient, value, savings, link, description } = grant;
 
   return `
-You are a policy & economics analyst. Analyze the **impact if this grant were canceled**.
+You are a policy & economics analyst but you are explaining the concepts to a member of the general public. Analyze the **impact if this grant were canceled** but put things in such a way, that the average citizen can make them out.
 
 Grant (normalized schema):
 - Date: ${date}
