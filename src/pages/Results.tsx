@@ -179,7 +179,7 @@ export default function Results() {
                   className="gap-2"
                 >
                   <Users className="h-4 w-4" />
-                  Contact A Congress Member
+                  Contact A Member Of Congress
                 </Button>
                 <div className="flex flex-col items-end gap-2">
                   <span className="text-xs text-muted-foreground">Share Summarized View To Twitter</span>
