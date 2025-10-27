@@ -48,12 +48,16 @@ export function CongressionalContactDialog({ open, onOpenChange, assessmentText 
     setIsLoading(true);
     try {
       const zip5 = zipCode.trim().slice(0, 5);
-      const url = `https://whoismyrepresentative.com/getall_mems.php?zip=${encodeURIComponent(zip5)}&output=json`;
-      
+      const apiUrl = `https://whoismyrepresentative.com/getall_mems.php?zip=${encodeURIComponent(zip5)}&output=json`;
+      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(apiUrl)}`;
+  
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 12000);
 
-      const response = await fetch(url, { signal: controller.signal, cache: 'no-store' });
+      const response = await fetch(proxyUrl, { 
+        signal: controller.signal, 
+        cache: 'no-store' 
+      });
       clearTimeout(timeoutId);
 
       if (!response.ok) throw new Error(`Request failed (${response.status})`);
