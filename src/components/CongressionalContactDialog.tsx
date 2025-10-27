@@ -251,9 +251,9 @@ export function CongressionalContactDialog({ open, onOpenChange, assessmentText 
                       <div className="space-y-2">
                         <div className="bg-muted/50 p-4 rounded-md border text-sm whitespace-pre-wrap font-mono">
                           Greetings,
-                          <br />
+                          <br /><br />
                           {emailDrafts[official.name]}
-                          <br />
+                          <br /><br />
                           Thank you for your dedicated service. I appreciate your consideration and look forward to your feedback.
                         </div>
                       </div>
