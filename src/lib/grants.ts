@@ -82,9 +82,9 @@ async function getSession(params: any) {
   
   console.log("Creating new AI session...");
   
+  // Check if LanguageModel API is available BEFORE trying to use it
   // @ts-ignore - LanguageModel is a browser API
-  _session = await LanguageModel.create(params);
-  if (!window.LanguageModel) {
+  if (!('LanguageModel' in self)) {
     throw new Error("Browser AI (LanguageModel API) is not available. Please use Chrome Canary with AI features enabled.");
   }
   
