@@ -91,7 +91,7 @@ async function getSession(params: any) {
   }
   
   // @ts-ignore - LanguageModel is a browser API
-  _session = await window.LanguageModel.create(params);
+  _session = await LanguageModel.create(params);
   console.log("AI session created successfully");
 >>>>>>> 511047fc9ad9bb74debc4eb938d959ce44b4fd58
   return _session;
