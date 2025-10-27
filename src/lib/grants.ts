@@ -94,7 +94,7 @@ export function buildAssessmentPrompt(grant: Grant, extraContext = "") {
   const { date, agency, recipient, value, savings, link, description } = grant;
 
   return `
-You are a policy & economics analyst. Your task is to analyze the **impact if this grant were canceled**.
+You are a policy & economics analyst. Analyze the **impact if this grant were canceled**.
 
 Grant (normalized schema):
 - Date: ${date}
@@ -103,23 +103,32 @@ Grant (normalized schema):
 - Amount_Value_USD: ${value}
 - Stated_Savings_USD: ${savings}
 - Link: ${link || "N/A"}
-- Description: ${description?.slice(0, 1500) ?? ""}
+- Description: ${description?.slice(0, 5000) ?? ""}
 
 Additional context (external facts, if any):
 ${extraContext || "N/A"}
 
 TASK:
-1) **Impact Summary**: Briefly assess short-term (0-12mo) and long-term (1-10yr) impacts on 3 key areas:
-   - Economic (jobs, local business)
-   - Public/Social (citizens, environment)
-   - Strategic (supply chain, national interest)
-2) **Risk Register**: List the top 3-4 risks from cancellation (risk, impact).
-3) **Mitigations**: Suggest 2-3 brief alternatives if this grant is canceled.
-4) **GAP Analysis Summary**: Provide a concise summary table with:
-   Current State → Gap if Canceled → Impact Level (Low/Med/High) → Mitigation.
+1) Identify direct & indirect stakeholders (businesses, US citizens, local/state/federal entities, and global actors).
+2) Quantify/qualify **short-term** impacts (0–12 months) and **long-term** impacts (1–10 years) across:
+   - Jobs/employment (creation, retention, displacement)
+   - Inflation/price effects, energy costs, and consumer surplus
+   - Supply chains, technology readiness, emissions/ESG targets
+   - Regional impacts (county/state/tribal lands if relevant)
+   - National security/strategic competitiveness (if relevant)
+   - Public health/safety and environmental externalities
+3) Dependencies and spillovers (other programs, matched funding, private co-investment, tax incentives, CCUS/CO2 transport & storage, permitting timelines).
+4) **Risk register** (what could go wrong if canceled vs. kept) and expected likelihood/severity.
+5) **Mitigations/alternatives** if canceled (funding substitutes, phasedown, private financing, policy instruments).
+6) **KPIs** to monitor (leading/lagging indicators) and suggested data sources.
+7) **Pork check**: If evidence suggests the grant is wasteful/non-strategic pork, explain why and propose a better allocation.
+8) Provide a concise **GAP Analysis Summary** table with: Current State → Gap if Canceled → Impact Level (Low/Med/High) → Mitigation.
+
+CITATIONS:
+- Where you assert factual claims (market sizes, jobs multipliers, emissions, grid capacity, etc.), cite credible public sources by name (e.g., EIA, EPA, BEA, BLS, DOE NETL/FEED docs, CRS, IMF, BIS, peer-reviewed studies). If you cannot access the web, be explicit about assumptions.
 
 OUTPUT FORMAT:
-Return clean markdown. Provide a final 1-2 sentence **Bottom Line**.
+Return clean markdown with clear section headings and a final one-paragraph **Bottom Line**. Avoid UI elements; no HTML widgets. Do not include code blocks unless necessary for a table.
 `;
 }
 
