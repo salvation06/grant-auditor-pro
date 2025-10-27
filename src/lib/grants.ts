@@ -107,32 +107,29 @@ export function buildAssessmentPrompt(grant: Grant, extraContext = "") {
   const { date, agency, recipient, value, savings, link, description } = grant;
 
   return `
-As a policy analyst, evaluate the consequences of canceling this grant.
+You are a policy & economics analyst. Analyze the **impact if this grant were canceled**.
 
-**Grant Data:**
+Grant (normalized schema):
+- Date: ${date}
+- Agency: ${agency}
 - Recipient: ${recipient}
-- Amount: ${value} USD
-- Purpose: ${description?.slice(0, 1000) ?? ""}
-- Context: ${extraContext || "N/A"}
+- Amount_Value_USD: ${value}
+- Stated_Savings_USD: ${savings}
+- Link: ${link || "N/A"}
+- Description: ${description?.slice(0, 5000) ?? ""}
 
----
+Additional context (external facts, if any):
+${extraContext || "N/A"}
 
-### 1. Core Impact Analysis
-* **Short-Term (0-12 mos):** Briefly state the immediate economic (e.g., jobs) and social (e.g., public service) effects.
-* **Long-Term (1-10 yrs):** Briefly state the potential strategic (e.g., supply chain, innovation) and public outcomes.
+TASK:
+1) Identify direct & indirect stakeholders (businesses, US citizens, local/state/federal entities, and global actors).
+2) **Pros and Cons - As Models may be biased, therefore, use left leaning ideology, right leaning ideology, and center leaning ideology in the assessment (eg Republicans favor small government, so cutting a grant may be efficient in this regards)
+3) **Mitigations/alternatives** if canceled (funding substitutes, phasedown, private financing, policy instruments).
+4) **Pork check**: If evidence suggests the grant is wasteful/non-strategic pork, explain why and propose a better allocation.
+5) Provide a concise **GAP Analysis Summary**: Current State → Gap if Canceled → Impact Level (Low/Med/High) → Mitigation.  Do not put in chart format, use bullet points for each gap analysis item
 
----
-
-### 2. Key Risks & Mitigations
-* **Primary Risk:** [Describe the most significant risk]
-    * **Mitigation:** [Suggest a direct alternative or solution]
-* **Secondary Risk:** [Describe the next most significant risk]
-    * **Mitigation:** [Suggest a direct alternative or solution]
-
----
-
-### 3. Bottom Line
-A final 1-2 sentence summary of the overall impact of cancellation.
+OUTPUT FORMAT:
+Return clean markdown with clear section headings and a final one-paragraph **Bottom Line**. Avoid UI elements; no HTML widgets. Do not include code blocks unless necessary for a table.
 `;
 }
 
