@@ -123,9 +123,9 @@ ${extraContext || "N/A"}
 
 TASK:
 1) Identify direct & indirect stakeholders (businesses, US citizens, local/state/federal entities, and global actors).
-2) **Pros and Cons - As Models may be biased, therefore, use left leaning ideology, right leaning ideology, and center leaning ideology in the assessment (eg some favor small government, so cutting a grant may be efficient in this regards)
-3) **Mitigations/alternatives** if canceled (funding substitutes, phasedown, private financing, policy instruments).
-4) **Pork check**: If evidence suggests the grant is wasteful/non-strategic pork, explain why and propose a better allocation.
+2) **Mitigations/alternatives** if canceled (funding substitutes, phasedown, private financing, policy instruments).
+3) **Pork check**: If evidence suggests the grant is wasteful/non-strategic pork, explain why and propose a better allocation.
+4) Provide a concise **GAP Analysis Summary** and pros and cons of cancelation from various perspectives: Current State → Gap if Canceled → Impact Level (Low/Med/High) → Mitigation.  Do not put in chart format, use bullet points for each gap analysis item
 
 OUTPUT FORMAT:
 Return clean markdown with clear section headings and a final one-paragraph **Bottom Line**. Avoid UI elements; no HTML widgets. Do not include code blocks unless necessary for a table.
