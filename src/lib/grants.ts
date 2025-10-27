@@ -75,9 +75,21 @@ let _session: any = null;
 
 /** Create or reuse a LanguageModel session */
 async function getSession(params: any) {
-  if (_session) return _session;
+  if (_session) {
+    console.log("Reusing existing session");
+    return _session;
+  }
+  
+  console.log("Creating new AI session...");
+  
+  // @ts-ignore - LanguageModel is a browser API
+  if (!window.LanguageModel) {
+    throw new Error("Browser AI (LanguageModel API) is not available. Please use Chrome Canary with AI features enabled.");
+  }
+  
   // @ts-ignore - LanguageModel is a browser API
   _session = await window.LanguageModel.create(params);
+  console.log("AI session created successfully");
   return _session;
 }
 
@@ -131,6 +143,9 @@ export async function assessGrantImpact(grant: Grant, options: {
   temperature?: number;
   topK?: number;
 } = {}): Promise<string> {
+  console.log("=== assessGrantImpact called ===");
+  console.log("Grant:", grant.recipient);
+  
   const {
     contextProvider = null,
     temperature = 0.2,
@@ -147,24 +162,26 @@ export async function assessGrantImpact(grant: Grant, options: {
     }
   }
 
+  console.log("Building assessment prompt...");
   const prompt = buildAssessmentPrompt(grant, extraContext);
 
-  // Create/reuse model session with minimal, non-UI params
-  const session = await getSession({
-    initialPrompts: [
-      { role: "system", content: "You are a policy, energy, and macroeconomics analyst. Be precise, cite reputable sources when asserting facts, and separate assumptions from verified data." }
-    ],
-    temperature,
-    topK
-  });
-
   try {
-    console.log("Call prompt");
+    console.log("Getting AI session...");
+    // Create/reuse model session with minimal, non-UI params
+    const session = await getSession({
+      initialPrompts: [
+        { role: "system", content: "You are a policy, energy, and macroeconomics analyst. Be precise, cite reputable sources when asserting facts, and separate assumptions from verified data." }
+      ],
+      temperature,
+      topK
+    });
+
+    console.log("Calling prompt...");
     const response = await session.prompt(prompt);
-    console.log("Completed prompt");
+    console.log("Prompt completed successfully");
     return response;
   } catch (e) {
-    console.log(e);
+    console.error("Error in assessGrantImpact:", e);
     await resetModelSession();
     throw e;
   }
