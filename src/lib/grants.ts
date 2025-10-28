@@ -132,7 +132,7 @@ As a policy analyst, evaluate the consequences of canceling this grant.
 ---
 
 ### 3. Bottom Line
-A final 1-2 sentence summary of the overall impact of cancellation.`;
+A final summary of the overall impact of cancellation with pros and cons listed.`;
 }
 
 /**
