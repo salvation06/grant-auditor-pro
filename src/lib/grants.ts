@@ -125,9 +125,10 @@ As a policy analyst, evaluate the consequences of canceling this grant.
 
 ### 2. Key Risks & Mitigations
 **Primary Risk:** [Describe the most significant risk]
-    * **Mitigation:** [Suggest a direct alternative or solution]
+
 **Secondary Risk:** [Describe the next most significant risk]
-    * **Mitigation:** [Suggest a direct alternative or solution]
+
+**Mitigation:** [Suggest a direct alternative or solution]
 
 ---
 
