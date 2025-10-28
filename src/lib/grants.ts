@@ -126,14 +126,12 @@ As a policy analyst, evaluate the consequences of canceling this grant.
 ### 2. Key Risks & Mitigations
 **Primary Risk:** [Describe the most significant risk]
 
-**Secondary Risk:** [Describe the next most significant risk]
-
 **Mitigation:** [Suggest a direct alternative or solution]
 
 ---
 
 ### 3. Bottom Line
-A final summary of the overall impact of cancellation with pros and cons listed.`;
+A final one paragraph summary of the overall impact of cancellation with pros and cons listed.`;
 }
 
 /**
