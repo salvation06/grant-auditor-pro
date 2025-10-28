@@ -7,6 +7,7 @@ import { Grant } from "@/lib/grants";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { CongressionalContactDialog } from "@/components/CongressionalContactDialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function Results() {
   const location = useLocation();
@@ -14,6 +15,8 @@ export default function Results() {
   const { toast } = useToast();
   const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
   const [congressDialogOpen, setCongressDialogOpen] = useState(false);
+  const [summaryDialogOpen, setSummaryDialogOpen] = useState(false);
+  const [summaryText, setSummaryText] = useState("");
   const { grant, assessment } = location.state as { grant: Grant; assessment: string } || {};
 
   if (!grant || !assessment) {
@@ -90,14 +93,14 @@ export default function Results() {
     }
   };
 
-  const shareToTwitter = async () => {
+  const createSummaryForTwitter = async () => {
     setIsGeneratingSummary(true);
     try {
       const summary = await generateSummary(assessment);
       console.log(summary);
       const tweetText = `${summary}\n\nAnalyzing grant: ${grant.recipient} - ${formatCurrency(grant.value)}`;
-      const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
-      window.open(twitterUrl, '_blank');
+      setSummaryText(tweetText);
+      setSummaryDialogOpen(true);
     } catch (error) {
       toast({
         title: "Error",
@@ -181,18 +184,15 @@ export default function Results() {
                   <Users className="h-4 w-4" />
                   Contact A Member Of Congress
                 </Button>
-                <div className="flex flex-col items-end gap-2">
-                  <span className="text-xs text-muted-foreground">Share Summarized View To Twitter</span>
-                  <Button
-                    variant="default"
-                    onClick={shareToTwitter}
-                    disabled={isGeneratingSummary}
-                    className="gap-2"
-                  >
-                    <Share2 className="h-4 w-4" />
-                    {isGeneratingSummary ? "Generating..." : "Share"}
-                  </Button>
-                </div>
+                <Button
+                  variant="default"
+                  onClick={createSummaryForTwitter}
+                  disabled={isGeneratingSummary}
+                  className="gap-2"
+                >
+                  <Share2 className="h-4 w-4" />
+                  {isGeneratingSummary ? "Generating..." : "Create Summarized View For Twitter"}
+                </Button>
               </div>
             </div>
           </div>
@@ -206,6 +206,30 @@ export default function Results() {
         onOpenChange={setCongressDialogOpen}
         assessmentText={assessment}
       />
+
+      <Dialog open={summaryDialogOpen} onOpenChange={setSummaryDialogOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Summary for Twitter</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="p-4 bg-muted rounded-lg">
+              <p className="text-sm whitespace-pre-wrap">{summaryText}</p>
+            </div>
+            <div className="flex justify-end">
+              <a
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(summaryText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Share2 className="h-4 w-4" />
+                Share to Twitter
+              </a>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
