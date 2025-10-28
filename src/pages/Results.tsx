@@ -86,7 +86,7 @@ export default function Results() {
       summarizer.destroy();
       
       // Truncate to 160 characters
-      return summary.length > 160 ? summary.substring(0, 157) + '...' : summary + " #TheDogeCatcher #AIAnalyzed";
+      return summary + " #TheDogeCatcher #AIAnalyzed";
     } catch (e: any) {
       console.error('Summary generation failed:', e);
       throw e;
