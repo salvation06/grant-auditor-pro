@@ -123,9 +123,8 @@ ${extraContext || "N/A"}
 
 TASK:
 1) Identify direct & indirect stakeholders (businesses, US citizens, local/state/federal entities, and global actors).
-2) **Mitigations/alternatives** if canceled (funding substitutes, phasedown, private financing, policy instruments).
+2) Provide a concise **GAP Analysis Summary** and pros and cons of cancelation from various perspectives: Current State → Gap if Canceled → Impact Level (Low/Med/High) → Mitigation.  Do not put in chart format, use bullet points for each gap analysis item
 3) **Pork check**: If evidence suggests the grant is wasteful/non-strategic pork, explain why and propose a better allocation.
-4) Provide a concise **GAP Analysis Summary** and pros and cons of cancelation from various perspectives: Current State → Gap if Canceled → Impact Level (Low/Med/High) → Mitigation.  Do not put in chart format, use bullet points for each gap analysis item
 
 OUTPUT FORMAT:
 Return clean markdown with clear section headings and a final one-paragraph **Bottom Line**. Avoid UI elements; no HTML widgets. Do not include code blocks unless necessary for a table.
