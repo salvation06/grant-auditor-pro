@@ -131,7 +131,7 @@ As a policy analyst, evaluate the consequences of canceling this grant.
 ---
 
 ### 3. Bottom Line
-A final one paragraph summary of the overall impact of cancellation with pros and cons listed.`;
+A final one paragraph summary of the overall impact of cancellation with pros and cons listed. For each pro, try to find a counter-argument beyond just saves money.  Think from a taxpayer perspective of why this grant is not really needed.`;
 }
 
 /**
