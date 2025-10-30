@@ -20,8 +20,8 @@ https://doge.gov/savings
 
 The **DOGE Catcher**:
 
-- Tracks government **grant and contract activity**
-- Detects when a grant is **reduced, cancelled, or reallocated**
+- Tracks DOGE government **grant cancellation updates**
+- Displays the results when a grant is **reduced, cancelled, or reallocated**
 - Explains the **real-world impacts** (positive and negative)
 - Helps users take **action**:
   - Draft letters to Congress
@@ -37,11 +37,11 @@ Citizens get **clarity + a next step**, immediately.
 | Component | Technology / Approach |
 |---------|------------------------|
 | Data Source | Public government APIs (DOGE & related grant feeds) |
-| Processing | Python + Node microservices to ingest and normalize data |
-| Analysis | AI models for classification + narrative summarization |
+| Processing | React to display the data |
+| Analysis | AI models integration with Prompt API, Summarizer API, and Writer API |
 | UI | Web dashboard for search, exploration, and action |
 | Automation | Outreach template generation + social summary creation |
-| Scalability | Architecture allows plugging in **any future public government API** |
+| Scalability | Template architecture allows for cloning and redesign for **any future public government API** |
 
 We focused on **transparency**, **speed**, and **citizen usability**.
 
