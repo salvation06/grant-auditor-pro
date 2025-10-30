@@ -1,73 +1,104 @@
-# Welcome to your Lovable project
+# 🐕 The DOGE Catcher  
+**Turning complex government grant data into clear, actionable insights for everyday citizens.**
 
-## Project info
+This project was built for the **[Hackathon Name]**!
 
-**URL**: https://lovable.dev/projects/b045b29c-1457-4fc0-86be-abfcb66be444
+---
 
-## How can I edit this code?
+## 🎯 Inspiration
 
-There are several ways of editing your application.
+Government funding decisions often happen quietly—with real consequences for our communities. We wanted to give everyday citizens the same awareness and response speed that lobbying groups and large organizations have.
 
-**Use Lovable**
+By using public grant and spending data from DOGE (Department of Government Expenditures), we created a tool that highlights impactful grant changes and makes it easy for citizens to **understand, respond, and mobilize**.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b045b29c-1457-4fc0-86be-abfcb66be444) and start prompting.
+Public Data Source:  
+https://doge.gov/savings
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## 🧠 What It Does
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+The **DOGE Catcher**:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Tracks government **grant and contract activity**
+- Detects when a grant is **reduced, cancelled, or reallocated**
+- Explains the **real-world impacts** (positive and negative)
+- Helps users take **action**:
+  - Draft letters to Congress
+  - Generate outreach messages
+  - Create shareable social media summaries
 
-Follow these steps:
+Citizens get **clarity + a next step**, immediately.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🏗️ How We Built It
 
-# Step 3: Install the necessary dependencies.
-npm i
+| Component | Technology / Approach |
+|---------|------------------------|
+| Data Source | Public government APIs (DOGE & related grant feeds) |
+| Processing | Python + Node microservices to ingest and normalize data |
+| Analysis | AI models for classification + narrative summarization |
+| UI | Web dashboard for search, exploration, and action |
+| Automation | Outreach template generation + social summary creation |
+| Scalability | Architecture allows plugging in **any future public government API** |
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+We focused on **transparency**, **speed**, and **citizen usability**.
 
-**Edit a file directly in GitHub**
+---
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🚀 How to Use / Testing Instructions
 
-**Use GitHub Codespaces**
+**Live Demo:**  
+https://dogecatcherv2.web.app/
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Click **"Enter Analysis Dashboard"**
+2. Search or filter for a government grant cancellation event
+3. Press **"Analyze Impact"**
+4. Wait for the generated summary (may take 5–10 minutes)
 
-## What technologies are used for this project?
+After analysis completes, you can:
 
-This project is built with:
+| Feature | Description |
+|--------|-------------|
+| **Contact A Member of Congress** | Enter your ZIP → auto-find reps → auto-generate letter |
+| **Download Report** | Export analysis as Markdown |
+| **Generate Social Summary** | Creates a formatted post suitable for Twitter/X |
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 🧩 Challenges We Ran Into
 
-Simply open [Lovable](https://lovable.dev/projects/b045b29c-1457-4fc0-86be-abfcb66be444) and click on Share -> Publish.
+- Presenting **complex funding logic** in a way regular citizens can understand
+- Maintaining **neutral, fact-based tone** while still empowering civic engagement
+- Designing a system flexible enough to handle **many categories of grants**
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 🏆 Accomplishments We're Proud Of
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+- Turning *complicated civic data* into a **push-button** understandable workflow
+- Designing a **reusable framework** for any public government data source
+- Lowering the barrier for **meaningful civic participation**
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+---
+
+## 📚 What We Learned
+
+- People *want* to engage — they just need **clarity and confidence**
+- AI can **dramatically lower the barrier** to contacting representatives
+- Transparency becomes **powerful** when paired with **accessible action tools**
+
+---
+
+## ❤️ Contributing
+
+Pull requests welcome!  
+If you'd like to help expand the platform to additional government datasets, open an issue or PR.
+
+---
+
+## 📜 License
+
+MIT License — free to use, remix, and build on.
+
