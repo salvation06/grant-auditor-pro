@@ -49,6 +49,16 @@ We focused on **transparency**, **speed**, and **citizen usability**.
 
 ## 🚀 How to Use / Testing Instructions
 
+Prerequisites - 
+Ensure Gemini Nano Prompt API, Summarizer API, and Writer API is available in your browser
+Use a compatible Chrome version:
+Install a version of Chrome that supports Gemini Nano, such as Chrome Version 138 or above.
+Compatible on Windows, Mac, or Linux.
+Enable necessary Chrome flags:
+Navigate to chrome://flags/#optimization-guide-on-device-model and set it to Enabled BypassPerfRequirement.
+<img width="1014" height="748" alt="image" src="https://github.com/user-attachments/assets/e5906544-ae5d-4edb-bc09-5cdc4aba3edf" />
+Click Relaunch or restart Chrome to apply the changes.
+
 **Live Demo:**  
 https://dogecatcherv2.web.app/
 
